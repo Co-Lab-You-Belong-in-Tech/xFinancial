@@ -1,10 +1,4 @@
 import './App.css';
 
-const App = () => {
-  return (
-    <div>
-    </div>
-  );
-}
-
+const App = () => <div>Hello</div>;
 export default App;
