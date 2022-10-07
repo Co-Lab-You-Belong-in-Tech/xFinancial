@@ -1,4 +1,16 @@
-import './App.css';
+import React from 'react';
+import './assets/App.css';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import Home from './pages/Home';
 
-const App = () => <div>Hello</div>;
+const App = () => (
+  <>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Home />} />
+      </Routes>
+    </BrowserRouter>
+  </>
+);
+
 export default App;
