@@ -1,5 +1,6 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React from 'react';
+import { Link } from 'react-router-dom';
 import Goal from './Goal';
 
 function Goals() {
@@ -48,11 +49,12 @@ function Goals() {
         <div className="mt-10">
           <dl className="space-y-10 md:grid md:grid-cols-2 md:gap-x-8 md:gap-y-10 md:space-y-0">
             {features.map((feature) => (
-              <Goal key={feature.name} feature={feature} />
+              <Link key={feature.name} to={`/form/${feature.name}`}>
+                <Goal feature={feature} />
+              </Link>
             ))}
           </dl>
         </div>
-
       </div>
     </div>
   );
