@@ -4,14 +4,14 @@ const reducerSlice = createSlice({
   name: 'store',
   initialState: {},
   reducers: {
-    someAction: function () {
+    someAction() {
 
-    }
-  }
-})
+    },
+  },
+});
 const store = configureStore({
   reducer: {
     someReducer: reducerSlice.reducer,
-  }
-})
+  },
+});
 export default store;
