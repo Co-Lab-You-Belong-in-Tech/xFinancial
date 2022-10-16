@@ -1,7 +1,17 @@
-import { configureStore } from '@reduxjs/toolkit';
+import { configureStore, createSlice } from '@reduxjs/toolkit';
 
-const store = configureStore({
-  reducer: {},
+const reducerSlice = createSlice({
+  name: 'store',
+  initialState: {},
+  reducers: {
+    someAction() {
+
+    },
+  },
 });
-
+const store = configureStore({
+  reducer: {
+    someReducer: reducerSlice.reducer,
+  },
+});
 export default store;
