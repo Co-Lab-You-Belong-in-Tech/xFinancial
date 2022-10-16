@@ -1,37 +1,22 @@
+/* eslint-disable indent */
+/* eslint-disable react/jsx-indent */
+/* eslint-disable operator-linebreak */
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { getGoals } from '../../redux/goals/goalsSlice';
 import Goal from './Goal';
 
 function Goals() {
-  const features = [
-    {
-      name: 'Foundations: How should I manage my money?',
-      description:
-        'Lorem ipsum dolor sit amet consect adipisicing elit. Possimus magnamvoluptatum cupiditate veritatis in accusamus quisquam.',
-    },
-    {
-      name: 'Focused: How should I pay off my debts?',
-      description:
-        'Lorem ipsum dolor sit amet consect adipisicing elit. Possimus magnavoluptatum cupiditate veritatis in accusamus quisquam.',
-    },
-    {
-      name: 'Focused: How much should I save for retirement?',
-      description:
-        'Lorem ipsum dolor sit amet consect adipisicing elit. Possimus magnamiditate veritatis in accusamus quisquam.',
-    },
-    {
-      name: '  Focused: How much should I save for retirement?',
-      description:
-        'Lorem ipsum dolor sit amet consect adipisicing elit. Possimus magnamiditate veritatis in accusamus quisquam.',
-    },
-    {
-      name: 'Focused: How much should I save for retirement?',
-      description:
-        'Lorem ipsum dolor sit amet consect adipisicing elit. Possimus magnamiditate veritatis in accusamus quisquam.',
-    },
-  ];
+  const goalState = useSelector((state) => state.goal);
+  const dispatch = useDispatch();
 
+  useEffect(() => {
+    dispatch(getGoals());
+  }, [dispatch]);
+
+  console.log(goalState);
   return (
     <div className="bg-white py-12">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -48,11 +33,20 @@ function Goals() {
 
         <div className="mt-10">
           <dl className="space-y-10 md:grid md:grid-cols-2 md:gap-x-8 md:gap-y-10 md:space-y-0">
-            {features.map((feature) => (
-              <Link key={feature.name} to={`/form/${feature.name}`}>
-                <Goal feature={feature} />
-              </Link>
-            ))}
+            {goalState.loading && <p>Loading...</p>}
+            {!goalState.loading && goalState.error ? (
+              <div>
+                Error:
+                {goalState.error}
+              </div>
+            ) : null}
+            {!goalState.loading && goalState.goals.length
+              ? goalState.goals.map((goal) => (
+                  <Link key={goal.id} to={`/form/${goal.id}`}>
+                    <Goal goal={goal} />
+                  </Link>
+                ))
+              : null}
           </dl>
         </div>
       </div>
