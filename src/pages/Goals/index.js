@@ -3,18 +3,18 @@
 /* eslint-disable operator-linebreak */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { getGoals } from '../../redux/goals/goalsSlice';
+// import { getGoals } from '../../redux/goals/goalsSlice';
 import Goal from './Goal';
 
 function Goals() {
   const goalState = useSelector((state) => state.goal);
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getGoals());
-  }, [dispatch]);
+    // dispatch(getGoals());
+  }, []);
 
   return (
     <div className="bg-white py-12">
