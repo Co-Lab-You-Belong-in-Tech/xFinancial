@@ -26,7 +26,7 @@ const QuestionsForm = () => {
                 questions.map(({
                   id, question, type, options,
                 }) => (
-                  <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0" key={id}>
+                  <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0" key={id}>
                     <label className="block sentence tracking-wide text-gray-700 text-xl font-bold mb-2" htmlFor={id}>
                       {question}
 
