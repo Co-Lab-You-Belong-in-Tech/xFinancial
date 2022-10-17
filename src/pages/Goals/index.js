@@ -1,20 +1,10 @@
-/* eslint-disable indent */
-/* eslint-disable react/jsx-indent */
-/* eslint-disable operator-linebreak */
-/* eslint-disable jsx-a11y/label-has-associated-control */
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-// import { getGoals } from '../../redux/goals/goalsSlice';
 import Goal from './Goal';
 
 function Goals() {
   const goalState = useSelector((state) => state.goal);
-  // const dispatch = useDispatch();
-
-  useEffect(() => {
-    // dispatch(getGoals());
-  }, []);
 
   return (
     <div className="bg-white py-12">
@@ -41,10 +31,10 @@ function Goals() {
             ) : null}
             {!goalState.loading && goalState.goals.length
               ? goalState.goals.map((goal) => (
-                  <Link key={goal.id} to={`/form/${goal.id}`}>
-                    <Goal goal={goal} />
-                  </Link>
-                ))
+                <Link key={goal.id} to={`/form/${goal.id}`}>
+                  <Goal goal={goal} />
+                </Link>
+              ))
               : null}
           </dl>
         </div>
