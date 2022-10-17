@@ -1,17 +1,8 @@
-import { configureStore, createSlice } from '@reduxjs/toolkit';
+import { configureStore } from '@reduxjs/toolkit';
+import goalReducer from './goals/goalsSlice';
+import questionReducer from './questions/questionsSlice';
 
-const reducerSlice = createSlice({
-  name: 'store',
-  initialState: {},
-  reducers: {
-    someAction() {
-
-    },
-  },
-});
 const store = configureStore({
-  reducer: {
-    someReducer: reducerSlice.reducer,
-  },
+  reducer: { goal: goalReducer, question: questionReducer },
 });
 export default store;
