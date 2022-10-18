@@ -3,7 +3,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import questionService from './questionsService';
 
-// const ADD_ANSWER = 'questions/ADD_ANSWER';
 const initialState = {
   questions: [],
   status: 'idle',
@@ -17,10 +16,6 @@ export const getQuestions = createAsyncThunk(
     return questions;
   },
 );
-
-// export const addAnswer = (id, answer) => {
-//   return { type: ADD_ANSWER, payload: { id, answer } };
-// };
 
 const questionsSlice = createSlice({
   name: 'questions',
