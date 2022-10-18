@@ -31,7 +31,7 @@ function Goals() {
             ) : null}
             {!goalState.loading && goalState.goals.length
               ? goalState.goals.map((goal) => (
-                <Link key={goal.id} to={`/form/${goal.id}`}>
+                <Link key={goal.id} to={`/questions-form/${goal.id}`}>
                   <Goal goal={goal} />
                 </Link>
               ))
