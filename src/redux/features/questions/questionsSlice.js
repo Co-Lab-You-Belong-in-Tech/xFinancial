@@ -3,6 +3,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import questionService from './questionsService';
 
+// const ADD_ANSWER = 'questions/ADD_ANSWER';
 const initialState = {
   questions: [],
   status: 'idle',
@@ -17,6 +18,10 @@ export const getQuestions = createAsyncThunk(
   },
 );
 
+// export const addAnswer = (id, answer) => {
+//   return { type: ADD_ANSWER, payload: { id, answer } };
+// };
+
 const questionsSlice = createSlice({
   name: 'questions',
   initialState,
@@ -24,6 +29,16 @@ const questionsSlice = createSlice({
     questionAdded: {
       reducer(state, action) {
         state.questions.push(action.payload);
+      },
+    },
+    answerAdded: {
+      reducer(state, action) {
+        state.questions.forEach((question) => {
+          console.log(action);
+          if (question.id === action.payload.id) {
+            question['answer'] = action.payload.answer;
+          }
+        });
       },
     },
   },
@@ -44,7 +59,7 @@ const questionsSlice = createSlice({
   },
 });
 
-export const { questionAdded } = questionsSlice.actions;
+export const { questionAdded, answerAdded } = questionsSlice.actions;
 export const selectAllQuestions = (state) => state.questions.questions;
 export const getQuestionsStatus = (state) => state.questions.status;
 
