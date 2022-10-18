@@ -12,12 +12,25 @@ const QuestionsForm = () => {
   const dispatch = useDispatch();
   const questions = useSelector(selectAllQuestions);
   const questionsStatus = useSelector(getQuestionsStatus);
+  // const [test, setTest] = useState(false);
 
   useEffect(() => {
     if (questionsStatus === 'idle') {
       dispatch(getQuestions());
     }
   }, [questionsStatus, dispatch]);
+
+  const findQuestionRef = (refId) => {
+    let question = {};
+    if (questions.length) {
+      questions.forEach((ques) => {
+        if (ques.id === refId) {
+          question = ques;
+        }
+      });
+    }
+    return question;
+  };
 
   return (
     <>
@@ -34,9 +47,18 @@ const QuestionsForm = () => {
             <form className="flex flex-col items-center justify-center mt-10">
               {questionsStatus === 'loading' ? <div>Loading...</div> : null}
               {questionsStatus === 'succeeded'
-                ? questions.map((question) => (
-                  <Question key={question.id} ques={question} />
-                ))
+                ? questions.map((question) => {
+                  if (question.question_ref === 0) {
+                    return <Question key={question.id} ques={question} />;
+                  }
+                  const questionRef = findQuestionRef(question.question_ref);
+                  console.log(question.option);
+                  if (question.option.includes(questionRef.answer)) {
+                    return <Question key={question.id} ques={question} />;
+                  }
+
+                  return null;
+                })
                 : null}
               <button
                 className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-10"

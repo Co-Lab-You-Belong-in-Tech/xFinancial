@@ -1,34 +1,17 @@
 /* eslint-disable object-curly-newline */
 /* eslint-disable react/prop-types */
-import React, { useState } from 'react';
+import React from 'react';
 import { useDispatch } from 'react-redux';
 import { answerAdded } from '../../redux/features/questions/questionsSlice';
 
 function Question({ ques }) {
-  const [answers, setAnswer] = useState({});
   const { id, type, question, options } = ques;
   const dispatch = useDispatch();
   const getAnswer = (e) => {
-    const newAnswer = { questionId: id, answer: e.target.value };
-    // if (!answers.length) {
-    //   setAnswers((answers) => [...answers, answer]);
-    // } else {
-    //   setAnswers((answers) => {
-    //     answers.map((answer) => {
-    //       const updatedAnswer = answer;
-    //       if (updatedAnswer.questionId === id) {
-    //         updatedAnswer.answer = e.target.value;
-    //       }
-    //       return updatedAnswer;
-    //     });
-    //   });
-    // }
-    setAnswer(newAnswer);
     const answer = e.target.value;
     dispatch(answerAdded({ id, answer }));
   };
 
-  console.log(answers);
   return (
     <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
       <label
@@ -73,6 +56,8 @@ function Question({ ques }) {
                   type="radio"
                   name={id}
                   id={id + i}
+                  value={option}
+                  onChange={getAnswer}
                 />
                 <label
                   className="form-check-label px-2 text-sm"
