@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import IntroSection from './IntroSection';
 import Header from '../../components/Header';
-import { getGoals } from '../../redux/goals/goalsSlice';
+import { getGoals } from '../../redux/features/goals/goalsSlice';
 
 function Home() {
   const dispatch = useDispatch();

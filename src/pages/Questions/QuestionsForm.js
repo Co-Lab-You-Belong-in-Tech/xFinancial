@@ -6,17 +6,31 @@ import {
   selectAllQuestions,
   getQuestionsStatus,
 } from '../../redux/features/questions/questionsSlice';
+import Question from './Question';
 
 const QuestionsForm = () => {
   const dispatch = useDispatch();
   const questions = useSelector(selectAllQuestions);
   const questionsStatus = useSelector(getQuestionsStatus);
+  // const [test, setTest] = useState(false);
 
   useEffect(() => {
     if (questionsStatus === 'idle') {
       dispatch(getQuestions());
     }
   }, [questionsStatus, dispatch]);
+
+  const findQuestionRef = (refId) => {
+    let question = {};
+    if (questions.length) {
+      questions.forEach((ques) => {
+        if (ques.id === refId) {
+          question = ques;
+        }
+      });
+    }
+    return question;
+  };
 
   return (
     <>
@@ -33,68 +47,18 @@ const QuestionsForm = () => {
             <form className="flex flex-col items-center justify-center mt-10">
               {questionsStatus === 'loading' ? <div>Loading...</div> : null}
               {questionsStatus === 'succeeded'
-                ? questions.map(({
-                  id, question, type, options,
-                }) => (
-                  <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0" key={id}>
-                    <label
-                      className="block sentence tracking-wide text-gray-700 text-xl font-bold mb-2"
-                      htmlFor={id}
-                    >
-                      {question}
+                ? questions.map((question) => {
+                  if (question.question_ref === 0) {
+                    return <Question key={question.id} ques={question} />;
+                  }
+                  const questionRef = findQuestionRef(question.question_ref);
+                  console.log(question.option);
+                  if (question.option.includes(questionRef.answer)) {
+                    return <Question key={question.id} ques={question} />;
+                  }
 
-                      {type === 'Text' && (
-                      <input
-                        className="appearance-none block w-full bg-gray-200 text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white mt-2"
-                        id={id}
-                        type="text"
-                        placeholder={question}
-                      />
-                      )}
-                      {type === 'Date' && (
-                      <input
-                        className="appearance-none block w-full bg-gray-200 text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white mt-2"
-                        id={id}
-                        type="date"
-                        placeholder={question}
-                      />
-                      )}
-                      {type === 'Number' && (
-                      <input
-                        className="appearance-none block w-full bg-gray-200 text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white mt-2"
-                        id={id}
-                        type="number"
-                        placeholder={question}
-                      />
-                      )}
-                      {type === 'Multiple Choice' && (
-                      <div className="flex justify-start mt-3">
-                        {JSON.parse(options.replace(/'/g, '"')).map(
-                          (option, i) => (
-                            <div
-                              className="form-check mb-2"
-                              key={`option${id}`}
-                            >
-                              <input
-                                className="form-check-input px-2"
-                                type="radio"
-                                name={id}
-                                id={id + i}
-                              />
-                              <label
-                                className="form-check-label px-2 text-sm"
-                                htmlFor={id + i}
-                              >
-                                {option}
-                              </label>
-                            </div>
-                          ),
-                        )}
-                      </div>
-                      )}
-                    </label>
-                  </div>
-                ))
+                  return null;
+                })
                 : null}
               <button
                 className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-10"

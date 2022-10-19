@@ -26,6 +26,16 @@ const questionsSlice = createSlice({
         state.questions.push(action.payload);
       },
     },
+    answerAdded: {
+      reducer(state, action) {
+        state.questions.forEach((question) => {
+          console.log(action);
+          if (question.id === action.payload.id) {
+            question['answer'] = action.payload.answer;
+          }
+        });
+      },
+    },
   },
   extraReducers(builder) {
     builder
@@ -44,7 +54,7 @@ const questionsSlice = createSlice({
   },
 });
 
-export const { questionAdded } = questionsSlice.actions;
+export const { questionAdded, answerAdded } = questionsSlice.actions;
 export const selectAllQuestions = (state) => state.questions.questions;
 export const getQuestionsStatus = (state) => state.questions.status;
 
