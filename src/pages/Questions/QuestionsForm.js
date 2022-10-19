@@ -123,7 +123,6 @@ const QuestionsForm = () => {
                       );
                     }
                     const questionRef = findQuestionRef(question.question_ref);
-                    // console.log(question.option);
                     if (question.option.includes(questionRef.answer)) {
                       return (
                         <div
@@ -142,12 +141,6 @@ const QuestionsForm = () => {
                     return null;
                   })
                 : null}
-              {/* <button
-                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-10"
-                type="submit"
-              >
-                Submit
-              </button> */}
               <div className="flex gap-3">
                 <button
                   type="button"
