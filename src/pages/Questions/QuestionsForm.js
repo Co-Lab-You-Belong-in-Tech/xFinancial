@@ -76,7 +76,9 @@ const QuestionsForm = () => {
       return null;
     }
   };
-  const submitAnswers = () => {};
+  const submitAnswers = () => {
+    navigate('/recommendations')
+  };
   return (
     <>
       <section>
