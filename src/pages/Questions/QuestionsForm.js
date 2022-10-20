@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import findQuestionRef from '../../logic/analyzeQuestions';
 
 import {
   getQuestions,
@@ -29,17 +30,17 @@ const QuestionsForm = () => {
     }
   }, [questionsStatus, dispatch]);
 
-  const findQuestionRef = (refId) => {
-    let question = {};
-    if (questions.length) {
-      questions.forEach((ques) => {
-        if (ques.id === refId) {
-          question = ques;
-        }
-      });
-    }
-    return question;
-  };
+  // const findQuestionRef = (questions, refId) => {
+  //   let question = {};
+  //   if (questions.length) {
+  //     questions.forEach((ques) => {
+  //       if (ques.id === refId) {
+  //         question = ques;
+  //       }
+  //     });
+  //   }
+  //   return question;
+  // };
 
   const prev = () => {
     if (steps['Intro'] === true) {
@@ -124,7 +125,7 @@ const QuestionsForm = () => {
                         </div>
                       );
                     }
-                    const questionRef = findQuestionRef(question.question_ref);
+                    const questionRef = findQuestionRef(questions, question.question_ref);
                     if (question.option.includes(questionRef.answer)) {
                       return (
                         <div
