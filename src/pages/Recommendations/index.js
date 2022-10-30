@@ -1,6 +1,7 @@
 /* eslint-disable */
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useParams } from 'react-router-dom';
 import findQuestionRef from '../../logic/analyzeQuestions';
 import { selectAllQuestions } from '../../redux/features/questions/questionsSlice';
 import { getRecommendations } from '../../redux/features/recommendations/recommendationsSlice';
@@ -14,6 +15,8 @@ function Recommendations() {
   useEffect(() => {
     dispatch(getRecommendations());
   }, [dispatch]);
+
+  const {goalId} = useParams();
 
   return (
     <div>
@@ -61,6 +64,7 @@ function Recommendations() {
             })
           : null}
       </div>
+      <button className='btn rounded-sm bg-sky-600 px-3 text-white' onClick={() => navigate(`/form/${goalId}`)}>Edit answers</button>
     </div>
   );
 }

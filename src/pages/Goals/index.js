@@ -10,7 +10,7 @@ function Goals() {
     <div className="bg-white py-12">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="lg:text-center">
-          <h2 className="text-lg font-semibold text-indigo-600">Goals</h2>
+          <h2 className="text-lg font-semibold text-blue-700">Goals</h2>
           <p className="mt-2 text-3xl font-bold leading-8 tracking-tight text-gray-900 sm:text-4xl">
             A better way to choose your goal
           </p>

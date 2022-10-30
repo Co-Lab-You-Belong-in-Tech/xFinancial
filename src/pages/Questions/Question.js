@@ -48,7 +48,7 @@ function Question({ ques }) {
       )}
       {type === 'Multiple Choice' && (
         <div className="flex justify-start mt-3">
-          {JSON.parse(options.replace(/'/g, '"')).map((option, i) => (
+          {JSON.parse(options).map((option, i) => (
             <div className="form-check mb-2" key={`${option}${id}`}>
               <input
                 className="form-check-input px-2"

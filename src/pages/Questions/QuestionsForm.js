@@ -12,7 +12,7 @@ import {
 } from '../../redux/features/questions/questionsSlice';
 import Question from './Question';
 
-const QuestionsForm = () => {
+const QuestionsForm = ({ param }) => {
   const dispatch = useDispatch();
   const questions = useSelector(selectAllQuestions);
   const questionsStatus = useSelector(getQuestionsStatus);
@@ -29,18 +29,6 @@ const QuestionsForm = () => {
       dispatch(getQuestions());
     }
   }, [questionsStatus, dispatch]);
-
-  // const findQuestionRef = (questions, refId) => {
-  //   let question = {};
-  //   if (questions.length) {
-  //     questions.forEach((ques) => {
-  //       if (ques.id === refId) {
-  //         question = ques;
-  //       }
-  //     });
-  //   }
-  //   return question;
-  // };
 
   const prev = () => {
     if (steps['Intro'] === true) {
@@ -78,7 +66,7 @@ const QuestionsForm = () => {
     }
   };
   const submitAnswers = () => {
-    navigate('/recommendations')
+    navigate(`/recommendations/${param}`);
   };
   return (
     <>
@@ -108,9 +96,9 @@ const QuestionsForm = () => {
             )}
             <form className="flex flex-col items-center justify-center mt-10">
               {questionsStatus === 'loading' ? <div>Loading...</div> : null}
+              {questionsStatus === 'failed' ? <div>Error</div> : null}
               {questionsStatus === 'succeeded'
                 ? questions.map((question) => {
-                    console.log(question.section, steps[`${question.section}`]);
                     if (question.question_ref === 0) {
                       return (
                         <div
@@ -125,22 +113,48 @@ const QuestionsForm = () => {
                         </div>
                       );
                     }
-                    const questionRef = findQuestionRef(questions, question.question_ref);
-                    if (question.option.includes(questionRef.answer)) {
-                      return (
-                        <div
-                          key={question.id}
-                          className={
-                            steps[`${question.section}`]
-                              ? 'active w-full md:w-1/2 px-3 mb-6 md:mb-0'
-                              : 'inactive'
-                          }
-                        >
-                          <Question key={question.id} ques={question} />
-                        </div>
-                      );
+                    const refs = JSON.parse(question.question_ref);
+                    console.log(refs);
+                    // if (refs.length === 1) {
+                    const firstQuestionRef = findQuestionRef(questions, refs[0]);
+                    const optionsCurrentQuestion = JSON.parse(question.option);
+                    if (refs.length === 1) {
+                      if (optionsCurrentQuestion.includes(firstQuestionRef.answer)) {
+                        return (
+                          <div
+                            key={question.id}
+                            className={
+                              steps[`${question.section}`]
+                                ? 'active w-full md:w-1/2 px-3 mb-6 md:mb-0'
+                                : 'inactive'
+                            }
+                          >
+                            <Question key={question.id} ques={question} />
+                          </div>
+                        );
+                      }
                     }
-
+                    else if (refs.length === 2) {
+                      // const firstQuestionRef = findQuestionRef(questions, ref[0]);
+                      const lastQuestionRef = findQuestionRef(questions, refs[1]);
+                      const optionsLastQuestion = JSON.parse(lastQuestionRef.option);
+                      if (optionsLastQuestion.includes(firstQuestionRef.answer)) {
+                        if (optionsCurrentQuestion.includes(lastQuestionRef.answer)) {
+                          return (
+                            <div
+                              key={question.id}
+                              className={
+                                steps[`${question.section}`]
+                                  ? 'active w-full md:w-1/2 px-3 mb-6 md:mb-0'
+                                  : 'inactive'
+                              }
+                            >
+                              <Question key={question.id} ques={question} />
+                            </div>
+                          );
+                        }
+                      }
+                    }
                     return null;
                   })
                 : null}
