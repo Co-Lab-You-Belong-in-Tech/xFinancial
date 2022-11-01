@@ -47,23 +47,20 @@ function Question({ ques }) {
         />
       )}
       {type === 'Multiple Choice' && (
-        <div className="flex justify-start mt-3">
-          {JSON.parse(options.replace(/'/g, '"')).map((option, i) => (
-            <div className="form-check mb-2" key={`${option}${id}`}>
-              <input
-                className="form-check-input px-2"
-                type="radio"
-                name={id}
-                id={id + i}
-                value={option}
-                onChange={getAnswer}
-              />
-              <label className="form-check-label px-2 text-sm" htmlFor={id + i}>
-                {option}
-              </label>
-            </div>
-          ))}
-        </div>
+        <>
+          <ul className="grid gap-6 w-full mt-3 md:grid-cols-2">
+            {JSON.parse(options.replace(/'/g, '"')).map((option, i) => (
+              <li key={`${option}${id}`}>
+                <input type="radio" id={id + i * 2} name={id} value={option} onChange={getAnswer} className="hidden peer" required />
+                <label htmlFor={id + i * 2} className="inline-flex justify-between items-center p-5 w-full text-gray-500 bg-white rounded-lg border border-gray-200 cursor-pointer dark:hover:text-gray-300 dark:border-gray-700 dark:peer-checked:bg-blue-500 peer-checked:bg-blue-600 peer-checked:text-white hover:text-gray-600 hover:bg-gray-100 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700">
+                  <div className="block">
+                    <div className="w-full text-lg font-semibold">{option}</div>
+                  </div>
+                </label>
+              </li>
+            ))}
+          </ul>
+        </>
       )}
     </label>
   );

@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import Header from '../../components/Header';
 
 import {
   getQuestions,
@@ -76,9 +77,10 @@ const QuestionsForm = () => {
       return null;
     }
   };
-  const submitAnswers = () => {};
+  const submitAnswers = () => { };
   return (
     <>
+      <Header />
       <section>
         <div className="mt-20 md:my-20">
           <div className="container mx-auto px-4">
@@ -107,39 +109,39 @@ const QuestionsForm = () => {
               {questionsStatus === 'loading' ? <div>Loading...</div> : null}
               {questionsStatus === 'succeeded'
                 ? questions.map((question) => {
-                    console.log(question.section, steps[`${question.section}`]);
-                    if (question.question_ref === 0) {
-                      return (
-                        <div
-                          key={question.id}
-                          className={
-                            steps[`${question.section}`]
-                              ? 'active w-full md:w-1/2 px-3 mb-6 md:mb-0'
-                              : 'inactive'
-                          }
-                        >
-                          <Question ques={question} />
-                        </div>
-                      );
-                    }
-                    const questionRef = findQuestionRef(question.question_ref);
-                    if (question.option.includes(questionRef.answer)) {
-                      return (
-                        <div
-                          key={question.id}
-                          className={
-                            steps[`${question.section}`]
-                              ? 'active w-full md:w-1/2 px-3 mb-6 md:mb-0'
-                              : 'inactive'
-                          }
-                        >
-                          <Question key={question.id} ques={question} />
-                        </div>
-                      );
-                    }
+                  console.log(question.section, steps[`${question.section}`]);
+                  if (question.question_ref === 0) {
+                    return (
+                      <div
+                        key={question.id}
+                        className={
+                          steps[`${question.section}`]
+                            ? 'active w-full md:w-1/2 px-3 mb-6 md:mb-0'
+                            : 'inactive'
+                        }
+                      >
+                        <Question ques={question} />
+                      </div>
+                    );
+                  }
+                  const questionRef = findQuestionRef(question.question_ref);
+                  if (question.option.includes(questionRef.answer)) {
+                    return (
+                      <div
+                        key={question.id}
+                        className={
+                          steps[`${question.section}`]
+                            ? 'active w-full md:w-1/2 px-3 mb-6 md:mb-0'
+                            : 'inactive'
+                        }
+                      >
+                        <Question key={question.id} ques={question} />
+                      </div>
+                    );
+                  }
 
-                    return null;
-                  })
+                  return null;
+                })
                 : null}
               <div className="flex gap-3">
                 <button
