@@ -11,8 +11,8 @@ const initialState = {
 
 export const getQuestions = createAsyncThunk(
   'questions/getQuestions',
-  async () => {
-    const questions = await questionService.getQuestions();
+  async (id) => {
+    const questions = await questionService.getQuestions(id);
     return questions;
   },
 );

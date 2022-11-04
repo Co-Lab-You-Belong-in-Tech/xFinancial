@@ -26,7 +26,7 @@ const QuestionsForm = ({ param }) => {
 
   useEffect(() => {
     if (questionsStatus === 'idle') {
-      dispatch(getQuestions());
+      dispatch(getQuestions(param));
     }
   }, [questionsStatus, dispatch]);
 
@@ -73,7 +73,7 @@ const QuestionsForm = ({ param }) => {
       <section>
         <div className="mt-20 md:my-20">
           <div className="container mx-auto px-4">
-            {!steps['Employment'] && !steps['Debt'] && (
+            {steps['Intro'] && (
               <>
                 <h1 className="max-w-1xl mb-6 text-4xl font-extrabold tracking-tight leading-none md:text-5xl xl:text-6xl text-center">
                   Tell us about yourself
@@ -84,14 +84,24 @@ const QuestionsForm = ({ param }) => {
                 </p>
               </>
             )}
-            {!steps['Intro'] && !steps['Debt'] && (
+            {steps['Employment'] && (
               <h1 className="max-w-1xl mb-6 text-4xl font-extrabold tracking-tight leading-none md:text-5xl xl:text-6xl text-center">
                 Employment
               </h1>
             )}
-            {!steps['Employment'] && !steps['Intro'] && (
+            {steps['Debt'] && (
               <h1 className="max-w-1xl mb-6 text-4xl font-extrabold tracking-tight leading-none md:text-5xl xl:text-6xl text-center">
                 Debt
+              </h1>
+            )}
+            {steps['Efund'] && (
+              <h1 className="max-w-1xl mb-6 text-4xl font-extrabold tracking-tight leading-none md:text-5xl xl:text-6xl text-center">
+                Efund
+              </h1>
+            )}
+            {steps['Retirement'] && (
+              <h1 className="max-w-1xl mb-6 text-4xl font-extrabold tracking-tight leading-none md:text-5xl xl:text-6xl text-center">
+                Retirement
               </h1>
             )}
             <form className="flex flex-col items-center justify-center mt-10">
