@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import findQuestionRef from '../../logic/analyzeQuestions';
+import Header from '../../components/Header';
 
 import {
   getQuestions,
@@ -70,6 +71,7 @@ const QuestionsForm = ({ param }) => {
   };
   return (
     <>
+      <Header />
       <section>
         <div className="mt-20 md:my-20">
           <div className="container mx-auto px-4">
