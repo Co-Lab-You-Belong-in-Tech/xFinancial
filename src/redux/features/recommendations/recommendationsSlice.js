@@ -19,7 +19,7 @@ export const getRecommendations = createAsyncThunk(
 );
 
 const recommendationsSlice = createSlice({
-  name: 'goal',
+  name: 'recommendations',
   initialState,
   extraReducers(builder) {
     builder
