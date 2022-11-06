@@ -17,8 +17,8 @@ function Goals() {
               What&apos;s your goal?
             </p>
             <p className="mt-4 max-w-2xl text-xl text-gray-500 lg:mx-auto">
-              Lorem ipsum dolor sit amet consect adipisicing elit. Possimus magnam
-              voluptatum cupiditate veritatis in accusamus quisquam.
+              Select a financial goal on to focus on. Then we’ll ask you the
+              relevant questions to help you get started.
             </p>
           </div>
 
